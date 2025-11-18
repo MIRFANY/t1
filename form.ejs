@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= book ? 'Edit Book' : 'Add Book' %></title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header"><div class="title">Book Notes</div></header>
+    <main class="site-main">
+      <div
+        class="card"
+        style="max-width: 700px; margin: 18px auto; padding: 22px"
+      >
+        <h1 style="margin-top: 0; color: var(--accent-dark)">
+          <%= book ? 'Edit Book' : 'Add Book' %>
+        </h1>
+        <form
+          action="<%= book ? '/books/' + book.id : '/books' %>"
+          method="POST"
+        >
+          <label>Title:</label>
+          <input
+            type="text"
+            name="title"
+            value="<%= book ? book.title : '' %>"
+            required
+          />
+
+          <label>Author:</label>
+          <input
+            type="text"
+            name="author"
+            value="<%= book ? book.author : '' %>"
+          />
+
+          <label>Review:</label>
+          <textarea name="review"><%= book ? book.review : '' %></textarea>
+
+          <div class="row">
+            <div style="flex: 1">
+              <label>Rating:</label>
+              <input
+                type="number"
+                name="rating"
+                min="1"
+                max="5"
+                value="<%= book ? book.rating : '' %>"
+              />
+            </div>
+            <div style="flex: 1">
+              <label>ISBN:</label>
+              <input
+                type="text"
+                name="isbn"
+                value="<%= book ? book.isbn : '' %>"
+              />
+            </div>
+          </div>
+
+          <label>Date Read:</label>
+          <input
+            type="date"
+            name="date_read"
+            value="<%= book && book.date_read ? (book.date_read.toString ? (new Date(book.date_read)).toISOString().slice(0,10) : book.date_read) : '' %>"
+          />
+
+          <div style="margin-top: 14px">
+            <button class="btn btn-animate" type="submit">
+              <%= book ? 'Update' : 'Add' %>
+            </button>
+            <a class="btn alt" href="/books" style="margin-left: 8px">Back</a>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script src="/animations.js"></script>
+  </body>
+</html>
